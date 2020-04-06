@@ -7,9 +7,12 @@ def get_latitude_and_longitude_by_address(address):
     try:
         url = "https://dapi.kakao.com/v2/local/search/address.json"
 
-        r = requests.get("{}?query={}".format(url, address),
-            headers={'Authorization': "KakaoAK {}".format(api_key)})
+        req_url = "{}?query={}".format(url, address);
+        r = requests.get(req_url, headers={'Authorization': "KakaoAK {}".format(api_key)})
         data = r.json()
+        if len(data.get('documents', [])) is 0 or data.get('total_count', 0) is 0:
+            print('Request: {}, Response: {}'.format(req_url, data))
+            return
         latitude = data['documents'][0]['y']
         longitude = data['documents'][0]['x']
 
