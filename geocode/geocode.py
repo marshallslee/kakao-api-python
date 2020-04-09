@@ -17,5 +17,6 @@ def get_latitude_and_longitude_by_address(address):
         longitude = data['documents'][0]['x']
 
     except Exception as e:
+        print(type(e))
         print(str(e))
     return latitude, longitude
